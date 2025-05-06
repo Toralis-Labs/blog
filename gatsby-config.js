@@ -3,7 +3,7 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `fsd`,
+    title: `Radiel Health Blog`,
     siteUrl: `https://www.yourdomain.tld`
   },
   plugins: [{
@@ -12,7 +12,9 @@ module.exports = {
       "accessToken": "JWnhPAtg_6TXIjVOH9nNV8_beHx_i2K5xn8mSYwjYXw",
       "spaceId": "dp18n18vgcga"
     }
-  }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-sitemap", {
+  }, "gatsby-plugin-image", 
+    "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-sitemap",
+    "gatsby-plugin-react-helmet", {
     resolve: 'gatsby-plugin-manifest',
     options: {
       "icon": "src/images/icon.png"
