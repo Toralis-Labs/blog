@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import get from 'lodash/get';
 import React from 'react';
 
@@ -20,10 +20,12 @@ const IndexPage = (props) => {
       <h1>Radiel Health</h1>
 
       {posts.map((post) => (
-        <div key={post.id}>
-          <h2>Title: {post.title}</h2>
-          <p>Subtitle: {post.subtitle.subtitle}</p>
-        </div>
+        <Link to={`/${post.slug}`} key={post.id}>
+          <div key={post.id}>
+            <h2>Title: {post.title}</h2>
+            <p>Subtitle: {post.subtitle.subtitle}</p>
+          </div>
+        </Link>
       ))}
     </Layout >
   )

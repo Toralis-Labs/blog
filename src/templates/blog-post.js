@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import React from 'react'
@@ -14,6 +14,7 @@ const BlogPost = ({ data }) => {
         title={post.title}
         description={post.description?.raw}
       />
+      <Link to="/">Back to Home</Link>
       <article className="article-writeup">
         <header className="article-page-header">
           <h1 className="article-page-header-title">{post.title}</h1>
