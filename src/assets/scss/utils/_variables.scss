@@ -1,0 +1,155 @@
+/*-----------------------------------------------------------------------------------
+
+  Theme Name: Feux - Agency HTML Template
+  Author: wprealizer 
+  Support: 
+  Description: 
+  Version: 1.0
+
+-----------------------------------------------------------------------------------
+
+/************ TABLE OF CONTENTS ***************
+/* variable css */
+/* typography css */
+/* animation css */
+/* global css */
+/* theme css */
+/* preloader css */
+/* scroll css */
+/* button css */
+/* button animation css */
+/* menu css */
+/* modal css */
+/* side info style */
+/* mean menu customize */
+/* header area style  */
+/* header area 2 style  */
+/* header area 3 style  */
+/* header area 4 style  */
+/* header area 5 style  */
+/* sticky header style */
+/* footer area style  */
+/* footer area 2 style  */
+/* footer area 3 style  */
+/* footer area 4 style  */
+/* hero area style  */
+/* hero area 2 style  */
+/* hero area 3 style  */
+/* hero area 4 style  */
+/* hero area 5 style  */
+/* brand area style  */
+/* brand area 2 style  */
+/* brand area 3 style  */
+/* brand area 4 style  */
+/* brand area 5 style  */
+/* brand area 6 style  */
+/* about area style  */
+/* about area 2 style  */
+/* about area 3 style  */
+/* about area 4 style  */
+/* about area 5 style  */
+/* about area 6 style  */
+/* process area style  */
+/* process area 2 style */
+/* process area 3 style  */
+/* process area 4 style  */
+/* process area 6 style  */
+/* service area style  */
+/* service area 2 style  */
+/* service area 3 style  */
+/* service area 4 style  */
+/* service area 5 style  */
+/* service area 6 style  */
+/* service details area style  */
+/* work area style  */
+/* work area 2 style  */
+/* work area 3 style  */
+/* work area 4 style  */
+/* work area 5 style  */
+/* work area 6 style  */
+/* work area 7 style  */
+/* work area 8 style  */
+/* work area 9 style  */
+/* team area style  */
+/* team area 2 style  */
+/* team area 3 style  */
+/* team area 4 style  */
+/* team area 5 style  */
+/* text slider area style  */
+/* text slider area 2 style  */
+/* text slider area 3 style  */
+/* awards area style  */
+/* awards area 2 style  */
+/* blog area style  */
+/* blog area 2 style  */
+/* blog area 3 style  */
+/* blog area 4 style  */
+/* blog area 5 style  */
+/* blog area 6 style  */
+/* blog area 7 style  */
+/* info area style  */
+/* cta area style  */
+/* cta area 2 style  */
+/* cta area 3 style  */
+/* page title area style  */
+/* video area style  */
+/* choose area style  */
+/* choose area 2 style  */
+/* testimonial area style  */
+/* testimonial area 2 style  */
+/* testimonial area 3 style  */
+/* testimonial area 4 style  */
+/* testimonial area 5 style  */
+/* faq area style  */
+/* faq area 2 style  */
+/* contact area style  */
+/* contact meta area style  */
+/* reveal animation style  */
+/* typing text style  */
+/* work details area style  */
+
+
+
+/*----------------------------------------*/
+/* variable css */
+/*----------------------------------------*/
+
+// Colors
+:root {
+  --primary: #0E0F11;
+  --secondary: #525355;
+  --border: #0E0F11;
+  --bg: #0E0F11;
+  --theme: #AFF42B;
+
+  --black: #0E0F11;
+  --black-2: #525355;
+  --white: #FFFFFF;
+  --white-2: #FFFFFF;
+
+  --action: #AFF42B;
+}
+
+
+
+
+// Responsive Variable
+$xxxl: 'only screen and (min-width: 1920px)';
+$xxl: 'only screen and (max-width: 1919px)';
+$xl: 'only screen and (max-width: 1399px)';
+$lg: 'only screen and (max-width: 1199px)';
+$md: 'only screen and (max-width: 991px)';
+$sm: 'only screen and (max-width: 767px)';
+$xs: '(max-width: 575px)';
+
+// For Box Layout
+$bl: 'only screen and (min-width: 1600px)';
+
+
+// Responsive Variable for container
+$cxxl: '(width > 1919px)';
+$cxl: '(width > 1399px)';
+$clg: '(width > 1199px)';
+$cmd: '(width > 991px)';
+$csm: '(width > 767px)';
+$cxs: '(width > 575px)';
