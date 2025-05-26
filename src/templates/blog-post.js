@@ -30,7 +30,6 @@ const BlogPost = ({ data }) => {
         title={post.title}
         description={post.description?.raw}
       />
-      <Link to="/">Back to Home</Link>
       <main>
         <section class="blog-area-7">
           <div class="container">
@@ -38,6 +37,19 @@ const BlogPost = ({ data }) => {
               <div class="section-content-wrapper">
                 <div class="main-content">
                   <div class="blog-details-wrapper fade-anim">
+                    <div class="header-button">
+                      <div class="t-btn-group">
+                        <Link class="t-btn t-btn-circle" to="/">
+                          <i class="fa-solid fa-arrow-left diff"></i>
+                        </Link>
+                        <a class="t-btn t-btn-primary" href="/">Back to all blogs</a>
+                        <Link class="t-btn t-btn-circle" to="/">
+                          <i class="fa-solid fa-arrow-left diff"></i>
+                        </Link>
+                      </div>
+                    </div>
+                    <br />
+                    <br />
                     <article class="blog-details">
                       <h2 class="title main">{post.title}</h2>
                       <br />
@@ -47,6 +59,7 @@ const BlogPost = ({ data }) => {
                         <span class="date">{post.publishDate}</span>
                         <span class="comments">{post.readTime} min read</span>
                       </div>
+                      <br />
                       <div>
                         {post.content?.content ? (
                           <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
@@ -90,7 +103,12 @@ const BlogPost = ({ data }) => {
                               return (
                                 <h3 id={get_header_id(children)}>{children}</h3>
                               )
-                            }
+                            },
+                            ul({ children }) {
+                              return (
+                                <ul className='blog-post-list'>{children}</ul>
+                              )
+                            },
                           }}>
                             {post.content.content}
                           </ReactMarkdown>
@@ -103,14 +121,6 @@ const BlogPost = ({ data }) => {
 
 
                       <div class="tags-and-share">
-                        <div class="tags-wrapper">
-                          <span class="title">Tags:</span>
-                          <div class="tags">
-                            <a href="#">Branding</a>
-                            <a href="#">Design</a>
-                            <a href="#">Corporate</a>
-                          </div>
-                        </div>
                         <div class="social-wrapper">
                           <p class="title">Share:</p>
                           <div class="social-links">
@@ -127,7 +137,6 @@ const BlogPost = ({ data }) => {
             </div>
           </div>
         </section>
-
       </main>
     </Layout>
   )
@@ -166,6 +175,9 @@ export const pageQuery = graphql`
       }
       content {
         content
+      }
+      coverImage {
+        url
       }
     }
   }

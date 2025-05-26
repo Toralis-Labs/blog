@@ -1,6 +1,6 @@
+import { graphql, useStaticQuery } from 'gatsby'
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
 import BannerImg from "../images/banner.png"
 
 const Seo = ({ description = 'A technical deep-dive by Jatin Mehta', lang = 'en', meta = [], title, image = BannerImg }) => {

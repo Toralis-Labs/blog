@@ -2,6 +2,7 @@ import React from 'react'
 
 import Footer from './footer'
 import './global.css'
+import Header from './header'
 import Seo from './seo'
 import './variables.css'
 
@@ -12,6 +13,7 @@ class Template extends React.Component {
     return (
       <>
         <Seo />
+        <Header />
         <main className='page-inner-wrapper '>{children}</main>
         <Footer />
       </>
