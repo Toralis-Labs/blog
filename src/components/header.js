@@ -39,12 +39,6 @@ export default function Header() {
             </div>
         </div>
     </header>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
     </div>
   )
 }

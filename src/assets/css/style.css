@@ -238,6 +238,11 @@ main {
   display: inline-block;
   width: 100%;
   overflow: hidden;
+  margin-top: 2rem;
+}
+
+article.blog-details{
+  margin-top: 2rem;
 }
 
 h1 {
@@ -13977,10 +13982,6 @@ btn-text-flip
 .blog-area-7 .section-content-wrapper {
   margin-top: 20px;
   margin-bottom: 20px;
-  display: grid;
-  gap: 40px 60px;
-  grid-template-columns: 1fr;
-  align-items: flex-start;
 }
 @media only screen and (max-width: 1399px) {
   .blog-area-7 .section-content-wrapper {
