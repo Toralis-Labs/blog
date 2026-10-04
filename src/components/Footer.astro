@@ -1,0 +1,75 @@
+---
+import { SITE, SOCIALS } from '../consts';
+import Squiggle from './Squiggle.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <Squiggle color="lilac" />
+  <div class="inner">
+    <p>made with <span class="heart" aria-label="love">♥</span> by {SITE.author} · © {year}</p>
+    <ul>
+      {
+        SOCIALS.map((s) => (
+          <li>
+            <a href={s.href}>
+              <span aria-hidden="true">{s.emoji}</span> {s.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a href="/rss.xml"><span aria-hidden="true">📡</span> rss</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    width: 100%;
+    max-width: var(--content);
+    margin: 0 auto;
+    padding: 0 var(--gutter) 32px;
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    padding-top: 24px;
+    color: var(--ink-soft);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .heart {
+    display: inline-block;
+    color: var(--pink);
+    animation: wiggle 1.2s ease-in-out infinite;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  a:hover {
+    text-decoration: underline wavy var(--pink);
+    text-underline-offset: 4px;
+  }
+</style>

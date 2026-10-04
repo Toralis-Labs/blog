@@ -1,0 +1,189 @@
+---
+import Avatar from '../components/Avatar.astro';
+import Doodles from '../components/Doodles.astro';
+import PostCard from '../components/PostCard.astro';
+import TagChip from '../components/TagChip.astro';
+import { SITE, SOCIALS } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPosts, getTags } from '../utils/posts';
+
+const posts = await getPosts();
+const latest = posts.slice(0, 3);
+const tags = getTags(posts).slice(0, 12);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="hero-text">
+      <p class="kicker c-mint">✿ welcome, friend ✿</p>
+      <h1>
+        hi, i'm <span class="name highlight c-pink">{[...SITE.author.toLowerCase()].map((ch) => <span>{ch}</span>)}</span>!
+      </h1>
+      <p class="lead">
+        this is my cozy little corner of the internet, where i write about the things i love, the things i'm learning,
+        and whatever else is rattling around in my head.
+      </p>
+      <div class="actions">
+        <a class="btn c-pink" href="/blog/">read the blog →</a>
+        <a class="btn ghost" href="/about/">about me</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <Doodles />
+      <Avatar size={300} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>fresh from the oven 🍪</h2>
+      {posts.length > 3 && <a class="link-arrow" href="/blog/">see all posts →</a>}
+    </div>
+    {
+      latest.length > 0 ? (
+        <ul class="post-grid">
+          {latest.map((post) => (
+            <li>
+              <PostCard post={post} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="empty">no posts yet… check back soon! 🌱</p>
+      )
+    }
+  </section>
+
+  {
+    tags.length > 0 && (
+      <section class="section">
+        <div class="section-head">
+          <h2>things i write about 🎨</h2>
+          <a class="link-arrow" href="/tags/">all tags →</a>
+        </div>
+        <ul class="chip-cloud">
+          {tags.map((tag) => (
+            <li>
+              <TagChip tag={tag.name} count={tag.count} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="section">
+    <div class="say-hi sticker c-lemon">
+      <div>
+        <h2>say hi! 👋</h2>
+        <p>i love hearing from people who read this little blog. drop me a note anytime!</p>
+      </div>
+      <ul>
+        {
+          SOCIALS.map((s) => (
+            <li>
+              <a class:list={['btn', `c-${s.color}`]} href={s.href}>
+                <span aria-hidden="true">{s.emoji}</span> {s.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: 48px 0 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw + 1rem, 4.6rem);
+  }
+
+  .name span {
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .name span:hover {
+    transform: translateY(-10px) rotate(-8deg);
+  }
+
+  .lead {
+    max-width: 38ch;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .hero-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 32px;
+  }
+
+  .say-hi {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 32px;
+    padding: 32px clamp(20px, 4vw, 44px);
+    border-radius: var(--radius-lg);
+  }
+
+  .say-hi h2 {
+    margin-bottom: 0.25em;
+  }
+
+  .say-hi p {
+    margin: 0;
+    max-width: 42ch;
+  }
+
+  .say-hi ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .say-hi .btn {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding-top: 24px;
+    }
+
+    .hero-art {
+      order: -1;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .lead {
+      margin-inline: auto;
+    }
+
+    .actions {
+      justify-content: center;
+    }
+  }
+</style>

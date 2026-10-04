@@ -1,0 +1,47 @@
+---
+// A placeholder blob buddy. Swap it for a real photo whenever you like, e.g.
+// <img src="/me.jpg" alt="Rishu" class="avatar" /> with the image in public/.
+interface Props {
+  size?: number;
+}
+const { size = 240 } = Astro.props;
+---
+
+<svg class="avatar" style={`--size: ${size}px`} viewBox="0 0 200 200" role="img" aria-label="a smiling blob doodle">
+  <path style="fill: var(--pink-soft); stroke: var(--ink)"
+    d="M100 30 C140 30 178 52 184 96 C190 140 156 186 100 186 C44 186 10 144 16 98 C22 54 60 30 100 30 Z"
+   
+   
+    stroke-width="5"></path>
+  <path style="stroke: var(--ink)" d="M100 31 C100 22 102 15 106 9" fill="none" stroke-width="4" stroke-linecap="round"></path>
+  <path style="fill: var(--mint); stroke: var(--ink)" d="M101 23 C90 11 77 12 72 19 C80 27 92 29 101 23 Z" stroke-width="3.5" stroke-linejoin="round"></path>
+  <path style="fill: var(--mint); stroke: var(--ink)" d="M104 16 C113 5 126 5 131 11 C123 19 111 21 104 16 Z" stroke-width="3.5" stroke-linejoin="round"></path>
+  <ellipse style="fill: var(--pink)" cx="62" cy="126" rx="15" ry="9" opacity="0.75"></ellipse>
+  <ellipse style="fill: var(--pink)" cx="138" cy="126" rx="15" ry="9" opacity="0.75"></ellipse>
+  <g class="eyes">
+    <ellipse style="fill: var(--ink)" cx="78" cy="104" rx="7.5" ry="10"></ellipse>
+    <ellipse style="fill: var(--ink)" cx="122" cy="104" rx="7.5" ry="10"></ellipse>
+    <circle cx="80.5" cy="100" r="2.6" fill="#fff"></circle>
+    <circle cx="124.5" cy="100" r="2.6" fill="#fff"></circle>
+  </g>
+  <path style="stroke: var(--ink)" d="M89 125 Q100 138 111 125" fill="none" stroke-width="5" stroke-linecap="round"></path>
+</svg>
+
+<style>
+  .avatar {
+    display: block;
+    width: min(100%, var(--size));
+    height: auto;
+    overflow: visible;
+  }
+
+  .eyes {
+    transform-origin: 100px 104px;
+    animation: blink 5s infinite;
+  }
+
+  @keyframes blink {
+    0%, 94%, 100% { transform: scaleY(1); }
+    97% { transform: scaleY(0.1); }
+  }
+</style>

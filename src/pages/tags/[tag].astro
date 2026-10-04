@@ -1,0 +1,46 @@
+---
+import PostCard from '../../components/PostCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, getTags, tagColor, type Post } from '../../utils/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return getTags(posts).map((tag) => ({
+    params: { tag: tag.slug },
+    props: { name: tag.name, posts: posts.filter((post) => post.data.tags.includes(tag.name)) },
+  }));
+}
+
+interface Props {
+  name: string;
+  posts: Post[];
+}
+const { name, posts } = Astro.props;
+---
+
+<BaseLayout title={`#${name}`} description={`posts tagged #${name} on rishu.blog.`}>
+  <header class="page-header">
+    <p class="kicker c-mint">🏷️ tagged</p>
+    <h1><span class:list={['highlight', `c-${tagColor(name)}`]}>#{name}</span></h1>
+    <p class="lead">{posts.length} {posts.length === 1 ? 'post' : 'posts'} about this.</p>
+  </header>
+
+  <ul class="post-grid">
+    {
+      posts.map((post) => (
+        <li>
+          <PostCard post={post} />
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="back"><a class="link-arrow" href="/tags/">← all tags</a></p>
+</BaseLayout>
+
+<style>
+  .back {
+    margin-top: 56px;
+    text-align: center;
+  }
+</style>

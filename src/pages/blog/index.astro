@@ -1,0 +1,58 @@
+---
+import PostCard from '../../components/PostCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, type Post } from '../../utils/posts';
+
+const posts = await getPosts();
+
+const byYear = new Map<number, Post[]>();
+for (const post of posts) {
+  const year = post.data.pubDate.getUTCFullYear();
+  byYear.set(year, [...(byYear.get(year) ?? []), post]);
+}
+---
+
+<BaseLayout title="blog" description="every post on rishu.blog, newest first.">
+  <header class="page-header">
+    <p class="kicker c-sky">📚 the archive</p>
+    <h1>all the <span class="highlight c-sky">posts</span></h1>
+    <p class="lead">{posts.length} little {posts.length === 1 ? 'story' : 'stories'} and counting.</p>
+  </header>
+
+  {
+    posts.length === 0 && <p class="empty">nothing here yet… the first post is on its way! 🌱</p>
+  }
+
+  {
+    [...byYear].map(([year, list]) => (
+      <section class="year">
+        <h2 class="year-label">{year}</h2>
+        <ul class="post-grid">
+          {list.map((post) => (
+            <li>
+              <PostCard post={post} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</BaseLayout>
+
+<style>
+  .year + .year {
+    margin-top: 64px;
+  }
+
+  .year-label {
+    display: inline-block;
+    margin-bottom: 28px;
+    padding: 0.1em 0.8em;
+    font-size: 1.5rem;
+    background: var(--lilac-soft);
+    border: var(--line);
+    border-radius: 999px;
+    box-shadow: 3px 3px 0 var(--ink);
+    rotate: -2deg;
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+import TagChip from '../../components/TagChip.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, getTags } from '../../utils/posts';
+
+const tags = getTags(await getPosts());
+---
+
+<BaseLayout title="tags" description="browse rishu.blog posts by topic.">
+  <header class="page-header">
+    <p class="kicker c-mint">🏷️ topics</p>
+    <h1>pick a <span class="highlight c-mint">tag</span>, any tag</h1>
+    <p class="lead">every topic i've written about, with how many posts are in each.</p>
+  </header>
+
+  {
+    tags.length > 0 ? (
+      <ul class="chip-cloud big">
+        {tags.map((tag) => (
+          <li>
+            <TagChip tag={tag.name} count={tag.count} />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">no tags yet! 🌱</p>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .big {
+    justify-content: center;
+    gap: 16px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+</style>

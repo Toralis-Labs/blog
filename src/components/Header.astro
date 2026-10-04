@@ -1,0 +1,107 @@
+---
+import { NAV_LINKS, SITE } from '../consts';
+import Flower from './Flower.astro';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const [name, ...rest] = SITE.title.split('.');
+---
+
+<header class="site-header">
+  <a class="logo" href="/" aria-label={`${SITE.title}, home`}>
+    <Flower size={44} />
+    <span class="logo-text">{name}<span class="logo-tld">.{rest.join('.')}</span></span>
+  </a>
+  <nav aria-label="Main">
+    <ul>
+      {
+        NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={['pill', `c-${link.color}`, { active: isActive(link.href) }]}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    width: 100%;
+    max-width: var(--content);
+    margin: 0 auto;
+    padding: 24px var(--gutter);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo :global(.flower) {
+    transition: rotate 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .logo:hover :global(.flower) {
+    rotate: 72deg;
+  }
+
+  .logo-text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.85rem;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-tld {
+    color: var(--pink);
+    -webkit-text-stroke: 1px var(--ink);
+    paint-order: stroke fill;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 0.3em 1em;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.05rem;
+    text-decoration: none;
+    background: var(--paper);
+    border: 2.5px solid var(--ink);
+    border-radius: 999px;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .pill:hover {
+    background: var(--accent-soft);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 0 var(--ink);
+  }
+
+  .pill.active {
+    background: var(--accent);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+</style>

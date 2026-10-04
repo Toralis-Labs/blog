@@ -1,0 +1,21 @@
+---
+// A wavy divider line. Pass any colour from the palette.
+import type { Color } from '../consts';
+
+interface Props {
+  color?: Color;
+}
+const { color = 'pink' } = Astro.props;
+---
+
+<div class:list={['squiggle', `c-${color}`]} aria-hidden="true"></div>
+
+<style>
+  .squiggle {
+    height: 14px;
+    background: var(--accent);
+    -webkit-mask: var(--wave) repeat-x center / 40px 14px;
+    mask: var(--wave) repeat-x center / 40px 14px;
+    --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14' viewBox='0 0 40 14'%3E%3Cpath d='M0 7 Q10 0 20 7 T40 7' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
+</style>
