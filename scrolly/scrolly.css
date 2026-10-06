@@ -1,0 +1,166 @@
+/* Scrolly: layout and transitions for scroll-driven stories.
+   This file only handles structure and motion. Colours and type belong in your own CSS;
+   override the --scrolly-* custom properties to restyle the defaults. */
+
+.scrolly {
+  --scrolly-stage-h: 100vh;
+  --scrolly-step-h: 100vh;
+  --scrolly-fade: 0.9s;
+  --scrolly-gutter: max(16px, 5vw);
+  position: relative;
+  isolation: isolate;
+}
+
+@supports (height: 100lvh) {
+  .scrolly {
+    --scrolly-stage-h: 100lvh;
+    --scrolly-step-h: 100svh;
+  }
+}
+
+/* The stage stays pinned to the screen while the steps scroll over it. */
+.scrolly-stage {
+  position: sticky;
+  top: 0;
+  height: var(--scrolly-stage-h);
+  overflow: hidden;
+  background: var(--scrolly-stage-bg, #05070d);
+}
+
+/* data-enter="grow": the stage opens out from a framed picture to full screen as it
+   scrolls in, and closes again as it leaves. Driven by --presence (0 to 1). */
+.scrolly[data-enter='grow'] .scrolly-stage {
+  clip-path: inset(
+    calc((1 - var(--presence, 1)) * 10vh) calc((1 - var(--presence, 1)) * 8vw)
+      round calc((1 - var(--presence, 1)) * 24px)
+  );
+}
+
+.scrolly-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--scrolly-fade) ease,
+    visibility 0s linear var(--scrolly-fade);
+}
+
+.scrolly-layer.is-active,
+.scrolly:not(.is-ready) .scrolly-layer:first-child {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity var(--scrolly-fade) ease,
+    visibility 0s;
+}
+
+.scrolly-layer > img,
+.scrolly-layer > video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* data-zoom: a slow push-in tied to scroll. --p runs 0 to 1 across the layer's steps.
+   Set --zoom (amount) and --zoom-origin on the element to tune it. */
+.scrolly-layer [data-zoom] {
+  transform: scale(calc(1 + var(--p, 0) * var(--zoom, 0.15)));
+  transform-origin: var(--zoom-origin, 50% 50%);
+  will-change: transform;
+}
+
+/* An optional veil over the picture to keep text readable. */
+.scrolly-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--scrolly-veil, transparent);
+  pointer-events: none;
+}
+
+/* Steps scroll over the pinned stage. */
+.scrolly-steps {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(-1 * var(--scrolly-stage-h));
+}
+
+.scrolly-step {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: var(--scrolly-step-h);
+  padding-inline: var(--scrolly-gutter);
+  pointer-events: none;
+}
+
+.scrolly-step[data-align='center'] {
+  justify-content: center;
+}
+
+.scrolly-step[data-align='right'] {
+  justify-content: flex-end;
+}
+
+.scrolly-step > * {
+  pointer-events: auto;
+}
+
+.scrolly-card {
+  max-width: min(30rem, 100%);
+  min-width: 0;
+  padding: 1.25rem 1.5rem;
+  color: var(--scrolly-card-fg, #f3f1ec);
+  background: var(--scrolly-card-bg, rgb(8 10 18 / 0.72));
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  opacity: var(--scrolly-card-idle, 0.45);
+  transition: opacity 0.5s ease;
+}
+
+.scrolly-step.is-active .scrolly-card {
+  opacity: 1;
+}
+
+/* Captions for whatever is audible, drawn on the stage. */
+.scrolly-caption {
+  position: absolute;
+  left: 50%;
+  bottom: max(2rem, calc(env(safe-area-inset-bottom, 0px) + 1.25rem));
+  z-index: 2;
+  max-width: min(40rem, calc(100% - 32px));
+  margin: 0;
+  padding: 0.35em 0.8em;
+  color: var(--scrolly-caption-fg, #fff);
+  background: var(--scrolly-caption-bg, rgb(0 0 0 / 0.78));
+  font: 600 0.95rem/1.4 system-ui, sans-serif;
+  text-align: center;
+  white-space: pre-line;
+  transform: translateX(-50%);
+}
+
+/* Videos placed in the running text. */
+video[data-inline] {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrolly {
+    --scrolly-fade: 0.01s;
+  }
+
+  .scrolly-layer [data-zoom] {
+    transform: none;
+  }
+
+  .scrolly[data-enter='grow'] .scrolly-stage {
+    clip-path: none;
+  }
+}

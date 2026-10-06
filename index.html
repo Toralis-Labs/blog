@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Low Tide</title>
+<meta name="description" content="A short scrolling story that moves between text, pictures, video and sound.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<link rel="stylesheet" href="scrolly/scrolly.css">
+<link rel="stylesheet" href="demo.css">
+<script type="module" src="demo.js"></script>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><span></span></div>
+
+<header class="opening">
+  <p class="eyebrow">A short story in text, pictures and sound</p>
+  <h1>Low Tide</h1>
+  <p class="deck">One evening at the bay. Scroll, and the pictures and sound move with you.</p>
+  <div class="start">
+    <button type="button" class="button primary" data-scrolly-sound="on" data-start>Start with sound</button>
+    <button type="button" class="button" data-scrolly-sound="off" data-start>Read without sound</button>
+  </div>
+  <p class="note">Sound fades in and out as you scroll. Use the button in the corner to switch it on or off at any time.</p>
+</header>
+
+<main id="story">
+
+  <section class="prose" data-audio="waves:0.12">
+    <p class="slug">EXT. COAST PATH – EARLY EVENING</p>
+    <p>The path to the bay starts behind the last house on the lane. It runs between two hedges, drops through a gap in the dunes and ends at a bench that faces west.</p>
+    <p>Nobody sits there in winter. In summer it’s the best seat in town for about forty minutes a day, from when the sun touches the far headland until the lighthouse comes on.</p>
+    <p>You can already hear the sea from here, faintly, under these words. Keep scrolling and the picture will open up around you.</p>
+  </section>
+
+  <section class="scrolly" id="bay" data-enter="grow" data-audio="waves:0.15">
+    <div class="scrolly-stage">
+      <div class="scrolly-layer" data-layer="dusk">
+        <img src="media/dusk.jpg" width="1920" height="1080" alt="A bay at sunset seen from the dunes, with a bench, dune grass and a lighthouse on the far headland." data-zoom style="--zoom: 0.2; --zoom-origin: 50% 64%">
+      </div>
+      <div class="scrolly-layer" data-layer="waves">
+        <video id="waves" data-sound data-label="Surf" loop muted playsinline preload="none" poster="media/waves-poster.jpg" aria-hidden="true">
+          <source src="media/waves.mp4" type='video/mp4; codecs="avc1.640028, mp4a.40.2"'>
+          <source src="media/waves.webm" type='video/webm; codecs="vp9, opus"'>
+          <track kind="captions" src="media/waves.vtt" srclang="en" label="English">
+        </video>
+      </div>
+    </div>
+    <div class="scrolly-steps">
+      <div class="scrolly-step" data-layer="dusk">
+        <div class="scrolly-card">
+          <p>From the bench you can see the whole bay. The water is flat and the light is turning orange.</p>
+          <p class="how"><code>data-enter="grow"</code> The picture opened out from the page as it scrolled in.</p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-layer="dusk" data-align="right">
+        <div class="scrolly-card">
+          <p>Scroll slowly and the view drifts closer. Scroll back and it eases away again.</p>
+          <p class="how"><code>data-zoom</code> The zoom follows your scroll position, not a timer.</p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-layer="waves">
+        <div class="scrolly-card">
+          <p>Down on the sand the sea is much louder. The waves arrive in pairs: two breakers, then a pause.</p>
+          <p class="how"><code>data-sound</code> The surf rises as the picture changes. With sound off, nothing plays.</p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-layer="waves" data-volume="0.35" data-align="right">
+        <div class="scrolly-card">
+          <p>Here the sea drops back so the words can sit on top of it.</p>
+          <p class="how"><code>data-volume="0.35"</code> Each step can set its own level.</p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-layer="waves" data-volume="1"></div>
+      <div class="scrolly-step" data-layer="waves" data-volume="0.8">
+        <div class="scrolly-card">
+          <p>Keep going. The picture folds back into the page and the sound goes with it.</p>
+          <p class="how">Volume follows how much of the picture is on screen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="prose">
+    <p class="slug">EXT. TIDE LINE – CONTINUOUS</p>
+    <p>At low tide the bay empties into a wide shelf of wet sand. Each wave runs up a little less far than the one before, and leaves a line of foam to mark where it stopped.</p>
+    <figure class="figure">
+      <video id="tide" data-inline data-sound data-volume="0.8" data-label="Foam" loop muted playsinline preload="none" poster="media/tide-poster.jpg" width="960" height="540">
+        <source src="media/tide.mp4" type='video/mp4; codecs="avc1.640028, mp4a.40.2"'>
+        <source src="media/tide.webm" type='video/webm; codecs="vp9, opus"'>
+        <track kind="captions" src="media/tide.vtt" srclang="en" label="English">
+      </video>
+      <figcaption>Foam at the tide line. This clip plays only while it’s on screen, and its sound follows how much of it you can see.</figcaption>
+    </figure>
+    <p>Behind you are the dunes, the bench and the town. Out in front, the sun is close to the water now.</p>
+    <figure class="figure">
+      <img src="media/shore.jpg" width="1600" height="800" loading="lazy" alt="The bay in golden light, with the sun high over the water and the lighthouse on the right.">
+      <figcaption>The bay from the dunes, half an hour earlier. A still picture, set in the text like any other.</figcaption>
+    </figure>
+    <p>You can watch it set at whatever speed you like.</p>
+  </section>
+
+  <section class="scrolly" id="sunset" data-enter="grow">
+    <div class="scrolly-stage">
+      <div class="scrolly-layer" data-layer="sunset">
+        <video data-scrub muted playsinline preload="none" poster="media/sunset-poster.jpg" aria-hidden="true">
+          <source src="media/sunset.mp4" type='video/mp4; codecs="avc1.640028"'>
+          <source src="media/sunset.webm" type='video/webm; codecs="vp9"'>
+        </video>
+      </div>
+    </div>
+    <div class="scrolly-steps">
+      <div class="scrolly-step" data-layer="sunset">
+        <div class="scrolly-card">
+          <p>This is a time-lapse, and you’re holding the clock. Scroll down and the sun goes down.</p>
+          <p class="how"><code>data-scrub</code> Your scroll position sets the video’s playhead.</p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-align="right">
+        <div class="scrolly-card">
+          <p>Scroll back up and it rises again. Every frame belongs to a place on the page.</p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-audio="night:0.5">
+        <div class="scrolly-card">
+          <p>As the sky turns blue, the lighthouse comes on and some music comes in underneath.</p>
+          <p class="how"><code>data-audio="night:0.5"</code> A separate audio track with no picture of its own.</p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-audio="night:0.5" data-align="right">
+        <div class="scrolly-card">
+          <p>By the time the last of the colour has gone, the stars are out.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="prose" data-audio="fire:0.3, night:0.25">
+    <p class="slug">EXT. BEACH – NIGHT</p>
+    <p>Further along the beach, someone has lit a fire. You can hear it before you can see it: the snap of driftwood, and under that a low roar.</p>
+    <p>This paragraph is plain text with a sound attached. The crackle belongs to the next scene. It’s already playing, just quietly.</p>
+  </section>
+
+  <section class="scrolly" id="fire-scene" data-enter="grow" data-audio="night:0.25">
+    <div class="scrolly-stage">
+      <div class="scrolly-layer" data-layer="fire">
+        <video id="fire" data-sound data-label="Fire" loop muted playsinline preload="none" poster="media/fire-poster.jpg" aria-hidden="true">
+          <source src="media/fire.mp4" type='video/mp4; codecs="avc1.640028, mp4a.40.2"'>
+          <source src="media/fire.webm" type='video/webm; codecs="vp9, opus"'>
+          <track kind="captions" src="media/fire.vtt" srclang="en" label="English">
+        </video>
+      </div>
+      <div class="scrolly-layer" data-layer="stars">
+        <img src="media/stars.jpg" width="1920" height="1080" alt="The bay at night under a sky full of stars, with the lighthouse beam on the far headland." data-zoom style="--zoom: 0.12; --zoom-origin: 50% 25%">
+      </div>
+    </div>
+    <div class="scrolly-steps">
+      <div class="scrolly-step" data-layer="fire">
+        <div class="scrolly-card">
+          <p>Three people are sitting around it, and a fourth has gone to look for more wood.</p>
+          <p class="how">Same sound as the paragraph above, now with its picture. Nothing restarts.</p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-layer="fire" data-volume="0.4" data-align="right">
+        <div class="scrolly-card">
+          <p>Someone has brought a flask of tea. Someone else has brought the wrong kind of cups.</p>
+          <p class="how"><code>data-volume="0.4"</code></p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-layer="stars" data-audio="night:0.9, fire:0.12">
+        <div class="scrolly-card">
+          <p>Walk twenty paces away from the fire and look up. Once your eyes adjust there are far more stars than you expected.</p>
+          <p class="how"><code>data-audio="night:0.9, fire:0.12"</code> The music swells and the fire stays faintly behind you.</p>
+        </div>
+      </div>
+      <div class="scrolly-step" data-layer="stars" data-audio="night:0.9, fire:0.12" data-align="center">
+        <div class="scrolly-card">
+          <p>The tide has turned. In a few hours the bay will be full again.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="prose" data-audio="night:0.2">
+    <p class="slug">FADE OUT.</p>
+    <p>That’s the whole story. Everything you saw and heard was set by how far down the page you were. Nothing played on a timer, and nothing made a sound until you asked it to.</p>
+  </section>
+
+  <section class="prose reference" id="how-it-works">
+    <h2>How it’s put together</h2>
+    <p>The page is ordinary HTML. Each scene is a section holding a pinned stage of pictures and videos, followed by the text steps that scroll over it. A small script with no dependencies watches the scroll position and decides what to show, what to play and how loud.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Attribute</th><th scope="col">Goes on</th><th scope="col">What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>class="scrolly"</code></td><td>section</td><td>Pins a full-screen stage while its steps scroll over it.</td></tr>
+          <tr><td><code>data-layer="dusk"</code></td><td>layer, step</td><td>Names a picture or video, and picks which one a step shows.</td></tr>
+          <tr><td><code>data-sound</code></td><td>video, audio</td><td>Lets the media be heard once the reader turns sound on.</td></tr>
+          <tr><td><code>data-volume="0.4"</code></td><td>step, inline video</td><td>Sets the level for that step, from 0 to 1.</td></tr>
+          <tr><td><code>data-audio="night:0.5"</code></td><td>section, step, any text block</td><td>Plays other sound sources by id, at the given level, while it’s on screen.</td></tr>
+          <tr><td><code>data-zoom</code></td><td>image or video in a layer</td><td>Pushes in slowly as you scroll. <code>--zoom</code> sets how far.</td></tr>
+          <tr><td><code>data-scrub</code></td><td>video in a layer</td><td>Ties the video’s playhead to scroll position.</td></tr>
+          <tr><td><code>data-inline</code></td><td>video in the text</td><td>Plays while on screen. With <code>data-sound</code>, its volume follows how much is visible.</td></tr>
+          <tr><td><code>data-enter="grow"</code></td><td>section</td><td>Opens the stage from a framed picture to full screen, and closes it on the way out.</td></tr>
+          <tr><td><code>data-align="right"</code></td><td>step</td><td>Moves the text card to the right or centre.</td></tr>
+          <tr><td><code>data-caption="…"</code></td><td>audio</td><td>Caption shown while it’s audible. Videos use a <code>&lt;track&gt;</code> file instead.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>All the pictures and sounds here were generated in code for this demo. To use real footage, swap the <code>src</code> attributes for your own files.</p>
+  </section>
+
+  <audio id="night" data-sound data-label="Night chords" data-caption="[slow, low synth chords]" loop preload="none" src="media/night.mp3"></audio>
+</main>
+
+<div class="controls" role="group" aria-label="Story controls">
+  <button type="button" class="control sound" data-scrolly-sound="toggle" aria-pressed="false" aria-label="Sound">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="waves" d="M16 9.5a3.5 3.5 0 0 1 0 5M18.5 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="cross" d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span class="state-off">Sound off</span><span class="state-on">Sound on</span>
+  </button>
+  <button type="button" class="control" data-scrolly-captions="toggle" aria-pressed="false">Captions</button>
+  <button type="button" class="control" id="mixer-toggle" aria-pressed="false" aria-controls="mixer">Mixer</button>
+</div>
+
+<aside class="mixer" id="mixer" hidden aria-label="What’s playing">
+  <p class="mixer-title">What’s playing</p>
+  <p class="mixer-where" id="mixer-where">Text only</p>
+  <ul class="mixer-rows" id="mixer-rows"></ul>
+</aside>
+</body>
+</html>

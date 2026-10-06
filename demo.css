@@ -1,0 +1,506 @@
+/* Layout: the story is set like a printed short story in one narrow column with screenplay
+   slug lines; at each scene the page opens into full-screen film and the text rides over
+   the picture in dark glass cards. */
+:root {
+  --paper: #e8ece9;
+  --ink: #17212b;
+  --ink-soft: #4b5764;
+  --rule: #c2cac6;
+  --lamp: #96560f;
+  --lamp-bright: #d0812a;
+  --night: #060912;
+  --glass: rgb(6 9 18 / 0.74);
+  --glass-ink: #efebe3;
+  --glass-soft: #a8b3c1;
+  --glass-lamp: #f3b862;
+  --glass-line: rgb(255 255 255 / 0.12);
+
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  --font-body: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --size-small: 0.8125rem;
+  --size-body: 1.1875rem;
+  --size-deck: clamp(1.3rem, 1rem + 1vw, 1.6rem);
+  --size-title: clamp(5rem, 22vw, 12rem);
+  --column: 34rem;
+  --gutter: max(16px, 5vw);
+
+  --scrolly-stage-bg: var(--night);
+  --scrolly-card-bg: var(--glass);
+  --scrolly-card-fg: var(--glass-ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #0c121a;
+    --ink: #e1e4df;
+    --ink-soft: #97a3b0;
+    --rule: #25303c;
+    --lamp: #f0b25c;
+    --lamp-bright: #f0b25c;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --paper: #0c121a;
+  --ink: #e1e4df;
+  --ink-soft: #97a3b0;
+  --rule: #25303c;
+  --lamp: #f0b25c;
+  --lamp-bright: #f0b25c;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  font-optical-sizing: auto;
+  line-height: 1.62;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--lamp-bright);
+  outline-offset: 3px;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+}
+
+/* ---------- reading progress ---------- */
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  height: calc(3px + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
+  pointer-events: none;
+}
+
+.progress span {
+  display: block;
+  height: 3px;
+  background: var(--lamp-bright);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ---------- opening ---------- */
+
+.opening {
+  max-width: calc(var(--column) + 2 * var(--gutter) + 12rem);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+  padding-block: clamp(4rem, 12vh, 8rem) 3rem;
+}
+
+.eyebrow,
+.slug,
+.note,
+figcaption,
+.mixer {
+  font-family: var(--font-mono);
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  font-size: var(--size-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--size-title);
+  line-height: 0.82;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.deck {
+  max-width: 28rem;
+  margin: 1.5rem 0 2rem;
+  font-size: var(--size-deck);
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.start {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.button {
+  appearance: none;
+  padding: 0.8em 1.3em;
+  font: 500 0.95rem/1 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.button:hover {
+  background: var(--rule);
+}
+
+.button.primary {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.button.primary:hover {
+  background: var(--ink-soft);
+  border-color: var(--ink-soft);
+}
+
+.note {
+  max-width: 30rem;
+  margin: 1.25rem 0 0;
+  font-size: var(--size-small);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* ---------- running text ---------- */
+
+.prose {
+  max-width: calc(var(--column) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+  padding-block: clamp(4rem, 14vh, 9rem);
+}
+
+.prose p {
+  margin: 0 0 1.1em;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+.prose .slug {
+  margin: 0 0 2rem;
+  padding-bottom: 0.6rem;
+  font-size: var(--size-small);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--lamp);
+  border-bottom: 1px solid var(--rule);
+}
+
+.figure {
+  position: relative;
+  left: 50%;
+  width: min(56rem, calc(100vw - 2 * var(--gutter)));
+  margin: 2.5rem 0;
+  translate: -50% 0;
+}
+
+.figure video,
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--night);
+}
+
+figcaption {
+  max-width: var(--column);
+  margin: 0.75rem auto 0;
+  font-size: var(--size-small);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ---------- cards over the picture ---------- */
+
+.scrolly-card {
+  max-width: min(27rem, 100%);
+  padding: 1.35rem 1.5rem 1.25rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  border: 1px solid var(--glass-line);
+  border-radius: 3px;
+}
+
+.scrolly-card p {
+  margin: 0;
+}
+
+.scrolly-card .how {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--glass-soft);
+  border-top: 1px solid var(--glass-line);
+}
+
+.how code {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.8rem;
+  color: var(--glass-lamp);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- reference ---------- */
+
+.reference {
+  padding-top: 2rem;
+}
+
+.reference h2 {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+.table-wrap {
+  position: relative;
+  left: 50%;
+  width: min(52rem, calc(100vw - 2 * var(--gutter)));
+  margin: 2rem 0;
+  overflow-x: auto;
+  translate: -50% 0;
+}
+
+table {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+th,
+td {
+  padding: 0.6rem 0.75rem 0.6rem 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--rule);
+}
+
+th {
+  font-family: var(--font-mono);
+  font-size: var(--size-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+td:first-child code {
+  color: var(--lamp);
+  white-space: nowrap;
+}
+
+td:nth-child(2) {
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+/* ---------- fixed controls ---------- */
+
+.controls {
+  position: fixed;
+  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 20;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem;
+  font: 500 0.78rem/1 var(--font-mono);
+  color: var(--glass-soft);
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.control:hover {
+  color: var(--glass-ink);
+}
+
+.control[aria-pressed='true'] {
+  color: var(--night);
+  background: var(--glass-lamp);
+}
+
+.control .icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.control .state-on,
+.control[aria-pressed='true'] .state-off,
+.control .waves,
+.control[aria-pressed='true'] .cross {
+  display: none;
+}
+
+.control[aria-pressed='true'] .state-on,
+.control[aria-pressed='true'] .waves {
+  display: inline;
+}
+
+/* Sound is off but something on screen has sound: nudge the reader. */
+:root[data-scrolly-sound='off'][data-scrolly-sound-here] .control.sound {
+  color: var(--glass-ink);
+  box-shadow: inset 0 0 0 1px var(--glass-lamp);
+  animation: nudge 2.4s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  50% {
+    box-shadow: inset 0 0 0 1px transparent;
+  }
+}
+
+/* ---------- mixer ---------- */
+
+.mixer {
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: 16px;
+  z-index: 20;
+  width: min(17rem, calc(100vw - 32px));
+  padding: 0.9rem 1rem 1rem;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--glass-ink);
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  border-radius: 6px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.mixer-title {
+  margin: 0;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--glass-soft);
+}
+
+.mixer-where {
+  margin: 0.25rem 0 0.75rem;
+  color: var(--glass-lamp);
+}
+
+.mixer-rows {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mixer-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 0.5rem;
+}
+
+.mixer-state {
+  color: var(--glass-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.meter {
+  position: relative;
+  grid-column: 1 / -1;
+  height: 6px;
+  background: var(--glass-line);
+  border-radius: 3px;
+}
+
+.meter-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background: var(--glass-lamp);
+  border-radius: 3px;
+}
+
+.meter-target {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: 0;
+  width: 2px;
+  background: var(--glass-ink);
+  opacity: 0.7;
+}
+
+.mixer-row.is-muted .meter-fill {
+  background: var(--glass-soft);
+  opacity: 0.5;
+}
+
+@media (max-width: 640px) {
+  .mixer {
+    top: auto;
+    bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .scrolly-card {
+    font-size: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-scrolly-sound='off'][data-scrolly-sound-here] .control.sound {
+    animation: none;
+  }
+}
